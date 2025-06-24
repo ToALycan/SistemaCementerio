@@ -127,7 +127,7 @@ def generar_contrato_pdf(id):
         ("Cliente", contrato.cliente.nombre if contrato.cliente else "N/A"),
         ("Espacio", f"Sector {contrato.espacio.sector}, Nº {contrato.espacio.numero}" if contrato.espacio else "N/A"),
         ("Fecha Inicio", contrato.fecha_inicio.strftime('%d/%m/%Y')),
-        ("Fecha Fin", contrato.fecha_fin if isinstance(contrato.fecha_fin, str) else contrato.fecha_fin.strftime('%d/%m/%Y')),
+        ("Fecha Fin", "Perpetuo" if contrato.tipo.lower() == "perpetuo" else contrato.fecha_fin.strftime('%d/%m/%Y') if contrato.fecha_fin else "No especificada"),
         ("Costo", f"Bs. {float(contrato.costo):.2f}"),
         ("Estado", contrato.estado),
     ]
