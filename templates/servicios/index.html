@@ -1,0 +1,123 @@
+{% extends 'dashboard.html' %}
+{% block title %}Servicios{% endblock %}
+
+{% block dashboard_content %}
+
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="bi bi-box-seam"></i> Servicios</h1>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalCrear">
+        <i class="bi bi-plus-circle"></i> Nuevo Servicio
+    </button>
+</div>
+
+<div class="card shadow">
+    <div class="card-body">
+        <table class="table table-striped">
+            <tr class="table-dark">
+                <th>ID</th>
+                <th>Tipo</th>
+                <th>Descripcion</th>
+                <th>Cliente</th>
+                <th>Difunto</th>
+                <th>Fecha</th>
+                <th>Ubicación</th>
+                <th>Costo</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+            {% for item in servicios %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.tipo }}</td>
+                <td>{{ item.descripcion }}</td>
+
+                <td>
+                    {% if item.cliente_id %}
+                    {{ item.cliente.nombre }}
+                    {% else %}
+                    Sin cliente asignado
+                    {% endif %}
+                </td>
+                <td>
+                    {% if item.difunto %}
+                    {{ item.difunto.nombre }}
+                    {% else %}
+                    Sin difunto asignado
+                    {% endif %}
+                </td>
+                <td>{{ item.fecha }}</td>
+                <td>
+                    {% if item.espacio %}
+                    Sector {{ item.espacio.sector }}, N° {{ item.espacio.numero }}
+                    {% else %}
+                    No asignado
+                    {% endif %}
+                </td>
+                <td>Bs.{{ "%.2f"|format(item.costo) }}</td>
+                <td>
+                    {% if item.estado == 'Pagado' %}
+                    <span class="badge bg-success">{{ item.estado }}</span>
+                    {% elif item.estado == 'Pendiente' %}
+                    <span class="badge bg-warning">{{ item.estado }}</span>
+                    {% elif item.estado == 'Cancelado' %}
+                    <span class="badge bg-danger">{{ item.estado }}</span>
+                    {% else %}
+                    <span class="badge bg-info">{{ item.estado }}</span>
+                    {% endif %}
+                </td>
+
+                <td>
+                    <button class="btn btn-primary" data-bs-target="#ModalEditar{{ item.id }}" data-bs-toggle="modal">
+                        <i class="bi bi-pencil"></i>
+                    </button>
+                    <a href="{{ url_for('servicio.delete', id=item.id) }}" class="btn btn-danger">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                    <a href="{{ url_for('servicio.generar_servicio_pdf', id=item.id) }}" class="btn btn-success" target="_blank">
+        <i class="bi bi-file-earmark-pdf-fill"></i>
+    </a>
+                </td>
+            </tr>
+            <div class="modal fade" id="ModalEditar{{ item.id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                <i class="bi bi-pencil"></i> Actualizar Servicio
+                            </h1>
+                        </div>
+
+                        {% include 'servicios/edit.html' %}
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="modal fade" id="ModalCrear" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Registro de Servicios</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        {% include 'servicios/create.html' %}
+
+                    </div>
+                </div>
+            </div>
+        </table>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

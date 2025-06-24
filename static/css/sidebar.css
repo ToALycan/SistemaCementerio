@@ -1,0 +1,83 @@
+.sidebar {
+    min-height: calc(100vh - 56px);
+    background-color: #343a40;
+    color: white;
+}
+
+.sidebar .nav-link {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 2px;
+}
+
+.sidebar .nav-link:hover {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar .nav-link.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.sidebar .nav-link i {
+    width: 24px;
+    text-align: center;
+    margin-right: 8px;
+}
+
+.content {
+    padding: 20px;
+}
+
+/* Estilos para las tarjetas del dashboard */
+.card-dashboard {
+    border-left: 4px solid #007bff;
+}
+
+.card-dashboard-green {
+    border-left: 4px solid #28a745;
+}
+
+.card-dashboard-yellow {
+    border-left: 4px solid #ffc107;
+}
+
+.card-dashboard-red {
+    border-left: 4px solid #dc3545;
+}
+
+/* Responsive */
+@media (max-width: 767.98px) {
+    .sidebar {
+        position: fixed;
+        z-index: 100;
+        width: 220px;
+        left: -220px;
+    }
+    
+    .sidebar.show {
+        left: 0;
+    }
+    
+    .content {
+        margin-left: 0 !important;
+        width: 100%;
+    }
+}
+/* Asegura que las tarjetas tengan fondo blanco */
+.card {
+    background-color: #ffffff !important;
+}
+
+/* Define el color primario para textos y bordes */
+.text-primary {
+    color: #4e73df !important;
+}
+
+.border-left-primary {
+    border-left: 4px solid #4e73df !important;
+}

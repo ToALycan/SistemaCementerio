@@ -1,0 +1,40 @@
+/* Estilos principales */
+.sidebar {
+    min-height: calc(100vh - 56px);
+    background-color: #343a40;
+    color: white;
+}
+
+.main-content {
+    padding: 20px;
+    margin-left: 0;
+    transition: margin-left 0.3s;
+}
+
+@media (min-width: 768px) {
+    .main-content {
+        margin-left: 16.666667%;
+    }
+}
+body {
+    overflow-x: hidden;
+}
+
+.bg-gray-800 {
+    background-color: #2d3748;
+}
+
+.main-content {
+    padding: 20px;
+    transition: margin-left 0.3s;
+}
+
+@media (min-width: 768px) {
+    .sidebar:not(.collapsed) + .main-content {
+        margin-left: 16.666667%;
+    }
+    
+    .sidebar.collapsed + .main-content {
+        margin-left: 60px;
+    }
+}

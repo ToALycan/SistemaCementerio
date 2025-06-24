@@ -1,0 +1,58 @@
+<div class="modal-body">
+    <form action="{{ url_for('difunto.create') }}" method="post">
+            <div class="row">
+                <div class="col-md-8 mb-3">
+                    <label for="nombre" class="form-label">Nombre Completo</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="nombre" class="form-label">Genero</label>
+                    <input type="text" class="form-control" id="genero" name="genero" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
+                    <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="fecha_defuncion" class="form-label">Fecha de Defunción</label>
+                    <input type="date" class="form-control" id="fecha_defuncion" name="fecha_defuncion" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="causa_muerte" class="form-label">Cedula De Identidad</label>
+                    <input type="text" class="form-control" id="cedula_identidad" name="cedula_identidad">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="causa_muerte" class="form-label">Estado Civil</label>
+                    <input type="text" class="form-control" id="estado_civil" name="estado_civil">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label for="causa_muerte" class="form-label">Causa de Muerte</label>
+                    <input type="text" class="form-control" id="causa_muerte" name="causa_muerte">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label for="cliente_id" class="form-label">Cliente Responsable</label>
+                    <select class="form-select" id="cliente_id" name="cliente_id" required>
+                        <option value="">Seleccione un cliente</option>
+                        {% for cliente in clientes %}
+                        <option value="{{ cliente.id }}">{{ cliente.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-save"></i> Guardar Registro
+                </button>
+            </div>
+        </form>
+</div>
+
+

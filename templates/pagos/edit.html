@@ -1,0 +1,55 @@
+<div class="modal-body">
+    <form action="{{ url_for('pago.edit', id=item.id) }}" method="post">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="cliente_id" class="form-label">Cliente</label>
+                <select class="form-select" id="cliente_id" name="cliente_id" required>
+                    <option value="">Seleccione un cliente</option>
+                    {% for cliente in clientes %}
+                    <option value="{{ cliente.id }}" {% if cliente.id==item.cliente_id %}selected{% endif %}>{{
+                        cliente.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="servicio_id" class="form-label">Servicio (opcional)</label>
+                <select class="form-select" id="servicio_id" name="servicio_id">
+                    <option value="">Pago general</option>
+                    {% for servicio in servicios %}
+                    <option value="{{ servicio.id }}" {% if servicio.id==item.servicio_id %}selected{% endif %}>{{
+                        servicio.tipo }} - {{ servicio.difunto_nombre }} ({{ servicio.fecha }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="monto" class="form-label">Monto</label>
+                <div class="input-group">
+                    <span class="input-group-text">Bs.</span>
+                    <input type="number" class="form-control" id="monto" name="monto" step="0.01" min="0" value="{{ "%.2f"|format(item.monto) }}" required>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="metodo_pago" class="form-label">Método de Pago</label>
+                <select class="form-select" id="metodo_pago" name="metodo_pago" required>
+                    <option value="">Seleccione un método</option>
+                    <option value="Efectivo"{% if item.metodo_pago == 'Efectivo' %}selected{% endif %}>Efectivo</option>
+                    <option value="Tarjeta"{% if item.metodo_pago == 'Tarjeta' %}selected{% endif %}>Tarjeta</option>
+                    <option value="Transferencia"{% if item.metodo_pago == 'Transferencia' %}selected{% endif %}>Transferencia</option>
+                    <option value="Cheque"{% if item.metodo_pago == 'Cheque' %}selected{% endif %}>Cheque</option>
+                </select>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="referencia" class="form-label">Referencia (opcional)</label>
+            <input type="text" class="form-control" id="referencia" name="referencia"
+                placeholder="Número de transacción, cheque, etc." value="{{  item.referencia }}">
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-save"></i> Registrar Pago
+            </button>
+        </div>
+    </form>
+</div>

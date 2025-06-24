@@ -1,0 +1,26 @@
+<div class="modal-body">
+    <form action="{{ url_for('cliente.edit', id=item.id) }}" method="POST">
+        <div class="mb-3">
+            <label for="" class="form-label">Nombre</label>
+            <input type="text" class="form-control" name="nombre" value="{{ item.nombre }}">
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Telefono</label>
+            <input type="number" class="form-control" name="telefono" value="{{ item.telefono }}">
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">email</label>
+            <input type="text" class="form-control" name="email" value="{{ item.email }}">
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">direccion</label>
+            <input type="text" class="form-control" name="direccion" value="{{ item.direccion }}">
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-sm btn-primary">
+                <i class="bi bi-pencil"></i> Actualizar Usuario
+            </button>
+        </div>
+
+    </form>
+</div>

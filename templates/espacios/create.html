@@ -1,0 +1,73 @@
+<div class="modal-body">
+    <form action="{{ url_for('espacio.create') }}" method="post">
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    <label for="sector" class="form-label">Codigo</label>
+                    <input type="text" class="form-control" id="numero" name="numero" required>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="tipo" class="form-label">Tipo de Espacio</label>
+                    <select class="form-select" id="tipo" name="tipo" required>
+                        <option value="">Seleccione un tipo</option>
+                        <option value="Nicho">Nicho</option>
+                        <option value="Tumba">Tumba</option>
+                        <option value="Mausoleo">Mausoleo</option>
+                        <option value="Osario">Osario</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="sector" class="form-label">Descripcion</label>
+                    <input type="text" class="form-control" id="descripcion" name="descripcion" required>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    <label for="sector" class="form-label">Sector</label>
+                    <input type="text" class="form-control" id="sector" name="sector" required>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="text" class="form-label">Pabellon</label>
+                    <input type="text" class="form-control" id="pabellon" name="pabellon" required>
+                </div>
+                <div class="col-md-1 mb-3">
+                    <label for="sector" class="form-label">Fila</label>
+                    <input type="text" class="form-control" id="fila" name="fila" required>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-4 mb-3">
+                    <label for="estado" class="form-label">Estado</label>
+                    <select class="form-select" id="estado" name="estado" required>
+                        <option value="Disponible">Disponible</option>
+                        <option value="Reservado">Reservado</option>
+                        <option value="Ocupado">Ocupado</option>
+                        <option value="Mantenimiento">Mantenimiento</option>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="difunto_id" class="form-label">Difunto Asignado</label>
+                    <select class="form-select" id="difunto_id" name="difunto_id">
+                        <option value="">Sin asignar</option>
+                        {% for difunto in difuntos %}
+                        <option value="{{ difunto.id }}">{{ difunto.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="fecha_ocupacion" class="form-label">Fecha de Asignacion</label>
+                        <input type="date" class="form-control" id="fecha_ocupacion" name="fecha_ocupacion">
+                    </div>
+                </div>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-save"></i> Guardar Espacio
+                </button>
+            </div>
+        </form>
+</div>
+
+

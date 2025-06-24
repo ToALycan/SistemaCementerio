@@ -1,0 +1,109 @@
+{% extends 'dashboard.html' %}
+{% block title %}Espacios{% endblock %}
+
+{% block dashboard_content %}
+
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="bi bi-grid-3x3"></i> Espacios</h1>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalCrear">
+        <i class="bi bi-plus-circle"></i> Nuevo Espacios
+    </button>
+</div>
+
+<div class="card shadow">
+    <div class="card-body">
+        <table class="table table-striped">
+            <tr class="table-dark">
+                <th>Cod_Espacio</th>
+                <th>Tipo</th>
+                <th>Descripcion</th>
+                <th>Sector</th>
+                <th>Pabellon</th>
+                <th>Fila</th>
+                <th>Estado</th>
+                <th>Fecha Ocupación</th>
+                <th>Difunto</th>
+                <th>Acciones</th>
+            </tr>
+            {% for item in espacios %}
+            <tr>
+                <td>{{ item.numero }}</td>
+                <td>{{ item.tipo }}</td>
+                <td>{{ item.descripcion }}</td>
+                <td>{{ item.sector }}</td>
+                <td>{{ item.pabellon }}</td>
+                <td>{{ item.fila }}</td>
+                <td>
+                    {% if item.estado == 'Disponible' %}
+                    <span class="badge bg-success">{{ item.estado }}</span>
+                    {% elif item.estado == 'Ocupado' %}
+                    <span class="badge bg-danger">{{ item.estado }}</span>
+                    {% elif item.estado == 'Reservado' %}
+                    <span class="badge bg-warning">{{ item.estado }}</span>
+                    {% else %}
+                    <span class="badge bg-info">{{ item.estado }}</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {{ item.fecha_ocupacion.strftime('%d/%m/%Y') if item.fecha_ocupacion else 'N/A' }}
+                </td>
+                <td>
+                    {% if item.difunto %}
+                    {{ item.difunto.nombre }}
+                    {% else %}
+                    Sin difunto asignado
+                    {% endif %}
+                </td>
+
+                <td>
+                    <button class="btn btn-primary" data-bs-target="#ModalEditar{{ item.id }}" data-bs-toggle="modal">
+                        <i class="bi bi-pencil"></i>
+                    </button>
+                    <a href="{{ url_for('espacio.delete', id=item.id) }}" class="btn btn-danger">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            <div class="modal fade" id="ModalEditar{{ item.id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                <i class="bi bi-pencil"></i> Actualizar Espacio
+                            </h1>
+                        </div>
+
+                        {% include 'espacios/edit.html' %}
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="modal fade" id="ModalCrear" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Registro de Espacio</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        {% include 'espacios/create.html' %}
+
+                    </div>
+                </div>
+            </div>
+        </table>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

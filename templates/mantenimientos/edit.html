@@ -1,0 +1,55 @@
+<div class="modal-body">
+    <form action="{{ url_for('mantenimiento.edit', id=item.id) }}" method="post">
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label for="espacio_id" class="form-label">Espacio</label>
+                    <select class="form-select" id="espacio_id" name="espacio_id" required>
+                        <option value="">Seleccione un espacio</option>
+                        {% for espacio in espacios %}
+                        <option value="{{ espacio.id }}" {% if espacio.id == item.espacio_id %}selected{% endif %}>
+                            {{ espacio.tipo }} - Sector {{ espacio.sector }}, N° {{ espacio.numero }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label for="descripcion" class="form-label">Descripción</label>
+                    <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required>{{ item.descripcion }}</textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="fecha_programada" class="form-label">Fecha Programada</label>
+                    <input type="date" class="form-control" id="fecha_programada" name="fecha_programada" value="{{ item.fecha_programada }}" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="fecha_realizado" class="form-label">Fecha Realizado</label>
+                    <input type="date" class="form-control" id="fecha_realizado" name="fecha_realizado" value="{{ item.fecha_realizado }}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="costo" class="form-label">Costo</label>
+                    <div class="input-group">
+                        <span class="input-group-text">Bs.</span>
+                        <input type="number" class="form-control" id="costo" name="costo" step="0.01" min="0" value="{{ item.costo }}">
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="estado" class="form-label">Estado</label>
+                    <select class="form-select" id="estado" name="estado" required>
+                        <option value="Programado" {% if item.estado == 'Programado' %}selected{% endif %}>Programado</option>
+                        <option value="Realizado" {% if item.estado == 'Realizado' %}selected{% endif %}>Realizado</option>
+                        <option value="Cancelado" {% if item.estado == 'Cancelado' %}selected{% endif %}>Cancelado</option>
+                    </select>
+                </div>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-save"></i> Actualizar Mantenimiento
+                </button>
+            </div>
+        </form>
+</div>

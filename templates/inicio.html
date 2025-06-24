@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Recuerdos Inolvidables</title>
+  <link rel="stylesheet" href="static/inicio/css/inicio.css" />
+</head>
+<body>
+
+  <header class="navbar" role="banner">
+    <a href="#" class="navbar-brand" aria-label="Inicio Recuerdos Inolvidables">
+      <img src="static/inicio/images/logos/logo_empresa.png" alt="Logo Recuerdos Inolvidables" />
+    </a>
+    <button id="navToggle" class="navbar-toggler" aria-label="Abrir menú" aria-expanded="false" aria-controls="navMenu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+    <nav id="navMenu" class="navbar-menu" role="navigation" aria-label="Menú principal">
+      <ul class="navbar-list">
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#espacios">Espacios</a></li>
+        <li><a href="#equipo">Equipo</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+        <li><button class="btn-login" onclick="window.location.href = '/login/login'">Iniciar Sesión</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero-section" role="main" aria-label="Presentación Recuerdos Inolvidables">
+    <img src="static/inicio/images/logos/logo_empresa.png" alt="Logo Recuerdos Inolvidables" class="main-logo" />
+    <div class="hero-text">
+      <h1>Recuerdos Inolvidables</h1>
+      <p>Un lugar de paz y respeto para honrar a sus seres queridos con dignidad y amor.</p>
+    </div>
+  </section>
+
+  <main>
+
+    <section id="servicios" class="container servicios-section" tabindex="-1" aria-label="Servicios funerarios">
+      <h2>Servicios</h2>
+      <div class="cards-grid">
+        <article class="card" tabindex="0" role="article" aria-describedby="desc-crematorio">
+          <img src="static/inicio/images/servicios/crematorio.jpg" alt="Crematorio" class="card-img-top" />
+          <h3>Crematorio</h3>
+          <p id="desc-crematorio">Ofrecemos un servicio de cremación respetuoso y profesional con todo el acompañamiento necesario.</p>
+          <button class="btn" onclick="mostrarModal('modalCrematorio')">Ver más</button>
+        </article>
+        <article class="card" tabindex="0" role="article" aria-describedby="desc-entierro">
+          <img src="static/inicio/images/servicios/entierro.jpg" alt="Entierro" class="card-img-top" />
+          <h3>Entierro</h3>
+          <p id="desc-entierro">Atención personalizada para la organización y realización de entierros con la mayor dignidad.</p>
+          <button class="btn" onclick="mostrarModal('modalEntierro')">Ver más</button>
+        </article>
+        <article class="card" tabindex="0" role="article" aria-describedby="desc-velatorio">
+          <img src="static/inicio/images/servicios/velatorio.jpg" alt="Velatorio" class="card-img-top" />
+          <h3>Velatorio</h3>
+          <p id="desc-velatorio">Espacios cómodos y adecuados para despedidas en un ambiente de respeto y cuidado.</p>
+          <button class="btn" onclick="mostrarModal('modalVelatorio')">Ver más</button>
+        </article>
+      </div>
+    </section>
+
+    <section id="espacios" class="container spaces-section" tabindex="-1" aria-label="Espacios conmemorativos">
+      <h2>Espacios</h2>
+      <div class="cards-grid">
+        <article class="card" tabindex="0" role="article" aria-describedby="desc-columbario">
+          <img src="static/inicio/images/espacios/columbario.jpg" alt="Columbario" class="card-img-top" />
+          <h3>Columbario</h3>
+          <p id="desc-columbario">Nicho especialmente diseñado para la conservación de cenizas, con seguridad y respeto.</p>
+          <button class="btn" onclick="mostrarModal('modalColumbario')">Ver más</button>
+        </article>
+        <article class="card" tabindex="0" role="article" aria-describedby="desc-mausoleo">
+          <img src="static/inicio/images/espacios/mausoleo.jpg" alt="Mausoleo" class="card-img-top" />
+          <h3>Mausoleo</h3>
+          <p id="desc-mausoleo">Estructuras monumentales que honran la memoria de sus seres queridos con elegancia y solemnidad.</p>
+          <button class="btn" onclick="mostrarModal('modalMausoleo')">Ver más</button>
+        </article>
+        <article class="card" tabindex="0" role="article" aria-describedby="desc-nicho">
+          <img src="static/inicio/images/espacios/nicho.jpg" alt="Nicho" class="card-img-top" />
+          <h3>Nicho</h3>
+          <p id="desc-nicho">Espacios diseñados para el descanso eterno con un ambiente sereno y cuidado especial.</p>
+          <button class="btn" onclick="mostrarModal('modalNicho')">Ver más</button>
+        </article>
+      </div>
+    </section>
+
+    <section id="equipo" class="container equipo-section" tabindex="-1" aria-label="Equipo humano">
+      <h2>Equipo</h2>
+      <div class="equipo-grid">
+        <div class="equipo-card" tabindex="0" role="img" aria-label="Christian Maldonado">
+          <img src="static/inicio/images/equipo/christian_maldonado.png" alt="Christian Maldonado" />
+          <h3>Christian Maldonado</h3>
+        </div>
+        <div class="equipo-card" tabindex="0" role="img" aria-label="Iván Ancasi">
+          <img src="static/inicio/images/equipo/ivan_ancasi.png" alt="Iván Ancasi" />
+          <h3>Iván Ancasi</h3>
+        </div>
+        <div class="equipo-card" tabindex="0" role="img" aria-label="Jhon Cori">
+          <img src="static/inicio/images/equipo/jhon_cori.png" alt="Jhon Cori" />
+          <h3>Jhon Cori</h3>
+        </div>
+        <div class="equipo-card" tabindex="0" role="img" aria-label="Olliver Laura">
+          <img src="static/inicio/images/equipo/olliver_laura.png" alt="Olliver Laura" />
+          <h3>Oliver Laura</h3>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto" class="contact-section" tabindex="-1" aria-label="Contacto">
+      <div class="container contact-flex">
+        <div class="contact-info">
+          <h3>Contacto</h3>
+          <ul class="contact-list">
+            <li><i class="fas fa-phone"></i> Teléfono: +591 74806492</li>
+            <li><i class="fas fa-envelope"></i> Email: contacto@recuerdosinolvidables.com</li>
+            <li><i class="fas fa-map-marker-alt"></i> Dirección: Av. Siempre Viva 742, La Paz, Bolivia</li>
+          </ul>
+        </div>
+        <div class="map-container">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3819.969188088817!2d-68.16879248471647!3d-16.500060888418!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x915f6a23e30969c3%3A0x6e159fd7f2a195b8!2sAv.%20Siempre%20Viva%20742%2C%20La%20Paz%2C%20Bolivia!5e0!3m2!1ses!2sus!4v1687700860457!5m2!1ses!2sus"
+            width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            title="Ubicación Recuerdos Inolvidables"
+          ></iframe>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="social-section" role="contentinfo" aria-label="Redes sociales">
+    <a href="https://facebook.com" target="_blank" rel="noopener" class="social-link" aria-label="Facebook">
+      <img src="static/inicio/images/redes/facebook.png" alt="Facebook" />
+    </a>
+    <a href="https://instagram.com" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
+      <img src="static/inicio/images/redes/instagram.png" alt="Instagram" />
+    </a>
+    <a href="https://wa.me/123456789" target="_blank" rel="noopener" class="social-link" aria-label="WhatsApp">
+      <img src="static/inicio/images/redes/whatsapp.png" alt="WhatsApp" />
+    </a>
+    <a href="https://youtube.com" target="_blank" rel="noopener" class="social-link" aria-label="YouTube">
+      <img src="static/inicio/images/redes/youtube.png" alt="YouTube" />
+    </a>
+  </footer>
+
+  <!-- Modales de servicios y espacios -->
+  <div id="modalCrematorio" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalCrematorioTitle">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Cerrar modal" onclick="cerrarModal('modalCrematorio')">&times;</button>
+      <h2 id="modalCrematorioTitle">Crematorio</h2>
+      <img src="static/inicio/images/servicios/crematorio.jpg" alt="Crematorio" />
+      <p>Servicio profesional y respetuoso de cremación con acompañamiento y soporte integral para las familias.</p>
+    </div>
+  </div>
+
+  <div id="modalEntierro" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalEntierroTitle">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Cerrar modal" onclick="cerrarModal('modalEntierro')">&times;</button>
+      <h2 id="modalEntierroTitle">Entierro</h2>
+      <img src="static/inicio/images/servicios/entierro.jpg" alt="Entierro" />
+      <p>Organización y realización de entierros con máxima dignidad y atención personalizada.</p>
+    </div>
+  </div>
+
+  <div id="modalVelatorio" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalVelatorioTitle">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Cerrar modal" onclick="cerrarModal('modalVelatorio')">&times;</button>
+      <h2 id="modalVelatorioTitle">Velatorio</h2>
+      <img src="static/inicio/images/servicios/velatorio.jpg" alt="Velatorio" />
+      <p>Espacios cómodos y cuidados para despedidas en un ambiente de respeto y calma.</p>
+    </div>
+  </div>
+
+  <div id="modalColumbario" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalColumbarioTitle">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Cerrar modal" onclick="cerrarModal('modalColumbario')">&times;</button>
+      <h2 id="modalColumbarioTitle">Columbario</h2>
+      <img src="static/inicio/images/espacios/columbario.jpg" alt="Columbario" />
+      <p>Conservación segura y respetuosa de cenizas en nichos diseñados para la tranquilidad familiar.</p>
+    </div>
+  </div>
+
+  <div id="modalMausoleo" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalMausoleoTitle">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Cerrar modal" onclick="cerrarModal('modalMausoleo')">&times;</button>
+      <h2 id="modalMausoleoTitle">Mausoleo</h2>
+      <img src="static/inicio/images/espacios/mausoleo.jpg" alt="Mausoleo" />
+      <p>Monumentos elegantes y solemnes para honrar con distinción a los seres queridos.</p>
+    </div>
+  </div>
+
+  <div id="modalNicho" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalNichoTitle">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Cerrar modal" onclick="cerrarModal('modalNicho')">&times;</button>
+      <h2 id="modalNichoTitle">Nicho</h2>
+      <img src="static/inicio/images/espacios/nicho.jpg" alt="Nicho" />
+      <p>Espacios cuidadosamente diseñados para el descanso eterno en un entorno sereno y respetuoso.</p>
+    </div>
+  </div>
+
+  <script src="static/inicio/js/inicio.js"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

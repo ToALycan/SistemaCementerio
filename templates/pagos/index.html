@@ -1,0 +1,104 @@
+{% extends 'dashboard.html' %}
+{% block title %}Pagos{% endblock %}
+
+{% block dashboard_content %}
+
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="bi bi-cash"></i> Pagos</h1>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalCrear">
+        <i class="bi bi-plus-circle"></i> Nuevo Pago
+    </button>
+</div>
+
+<div class="card shadow">
+    <div class="card-body">
+        <table class="table table-striped">
+            <tr class="table-dark">
+
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Servicio</th>
+                <th>Monto</th>
+                <th>Método de Pago</th>
+                <th>Referencia</th>
+                <th>Fecha</th>
+                <th>Acciones</th>
+
+            </tr>
+            {% for item in pagos %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>
+                    {% if item.cliente_id %}
+                    {{ item.cliente.nombre }}
+                    {% else %}
+                    Sin cliente asignado
+                    {% endif %}
+                </td>
+                <td>
+                    {% if item.servicio_id %}
+                    {{ item.servicio.tipo }}
+                    {% else %}
+                    Pago general
+                    {% endif %}
+                </td>
+                <td>Bs.{{ "%.2f"|format(item.monto) }}</td>
+                <td>{{ item.metodo_pago }}</td>
+                <td>{{ item.referencia or '-' }}</td>
+                <td>{{ item.fecha.strftime('%d/%m/%Y')}}</td>
+                <td>
+                    <button class="btn btn-primary" data-bs-target="#ModalEditar{{ item.id }}" data-bs-toggle="modal">
+                        <i class="bi bi-pencil"></i>
+                    </button>
+                    <a href="{{ url_for('pago.delete', id=item.id) }}" class="btn btn-danger">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                    <a href="{{ url_for('pago.generar_recibo', id=item.id) }}" class="btn btn-success" target="_blank">
+    <i class="bi bi-file-earmark-pdf"></i>
+</a>
+
+                </td>
+            </tr>
+            <div class="modal fade" id="ModalEditar{{ item.id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                <i class="bi bi-pencil"></i> Actualizar Pago
+                            </h1>
+                        </div>
+
+                        {% include 'pagos/edit.html' %}
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="modal fade" id="ModalCrear" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Registro de Pagos</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        {% include 'pagos/create.html' %}
+
+                    </div>
+                </div>
+            </div>
+        </table>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

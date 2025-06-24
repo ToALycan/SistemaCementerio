@@ -1,0 +1,106 @@
+{% extends 'dashboard.html' %}
+{% block title %}Usuarios{% endblock %}
+
+{% block dashboard_content %}
+
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="bi bi-people"></i> Usuarios</h1>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalCrear">
+        <i class="bi bi-plus-circle"></i> Nuevo Usuario
+    </button>
+</div>
+
+<div class="card shadow">
+    <div class="card-body">
+        <table class="table table-striped">
+            <tr class="table-dark">
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Usuario</th>
+                <th>Rol</th>
+                <th>Fecha de Registro</th>
+                <th>Acciones</th>
+            </tr>
+            {% for item in usuarios %}
+            <tr>
+                <td>{{item.id}}</td>
+                <td>{{item.nombre}}</td>
+                <td>{{item.username}}</td>
+                <td>{{item.rol}}</td>
+                <td>{{item.fecha_registro.strftime('%d/%m/%Y')}}</td>
+                <td>
+                    <button class="btn btn-primary" data-bs-target="#ModalEditar{{ item.id }}" data-bs-toggle="modal">
+                        <i class="bi bi-pencil"></i>
+                    </button>
+
+                    <a href="{{ url_for('usuario.delete', id=item.id) }}" class="btn btn-danger">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </td>
+            </tr>
+
+
+            <div class="modal fade" id="ModalEditar{{ item.id }}" aria-hidden="true"
+                aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                <i class="bi bi-pencil"></i> Actualizar Usuario
+                            </h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            {% include 'usuarios/edit.html' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="ModalResetPassword{{ item.id }}" aria-hidden="true"
+                aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header d-flex justify-content-between align-items-center mb-4">
+                            <h1 class="modal-title fs-5"><i class="bi bi-key"></i> Restablecer Contraseña</h1>
+                            <button type="button" class="btn btn-primary" data-bs-target="#ModalEditar{{ item.id }}"
+                                data-bs-toggle="modal"><i class="bi bi-arrow-left"></i> Volver</button>
+                        </div>
+                        <div class="modal-body">
+                            {% include 'usuarios/reset_password.html' %}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+            
+            {% endfor %}
+            <div class="modal fade" id="ModalCrear" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Registro de Usuario</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        {% include 'usuarios/create.html' %}
+
+                    </div>
+                </div>
+            </div>
+        </table>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

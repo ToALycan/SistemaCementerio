@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content_side %}
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-2 d-none d-md-block bg-dark sidebar">
+            <div class="d-flex flex-column flex-shrink-0 p-3 text-white">
+                <nav class="nav flex-column">
+                    <a class="nav-link text-white" href="{{ url_for('dashboard.index') }}"><i class="bi bi-speedometer2"></i> Dashboard</a>
+                    <a class="nav-link text-white" href="{{ url_for('cliente.index') }}"><i class="bi bi-people"></i> Clientes</a>
+                    <a class="nav-link text-white" href="{{ url_for('difunto.index') }}"><i class="bi bi-book"></i> Difuntos</a>
+                    <a class="nav-link text-white" href="{{ url_for('espacio.index') }}"><i class="bi bi-grid-3x3"></i> Espacios</a>
+                    <a class="nav-link text-white" href="{{ url_for('servicio.index') }}"><i class="bi bi-box-seam"></i> Servicios</a>
+                    <a class="nav-link text-white" href="{{ url_for('pago.index') }}"><i class="bi bi-cash"></i> Pagos</a>
+                    <a class="nav-link text-white" href="{{ url_for('contrato.index') }}"><i class="bi bi-file-earmark-text"></i> Contratos</a>
+                    <a class="nav-link text-white" href="{{ url_for('mantenimiento.index') }}"><i class="bi bi-tools"></i> Mantenimiento</a>
+                    {% if current_user.rol == 'admin' %}
+                    <a class="nav-link text-white" href="{{ url_for('usuario.index') }}"><i
+                            class="bi bi-person-badge"></i> Usuarios</a>
+                    {% endif %}
+                </nav>
+            </div>
+        </div>
+
+        <main class="col-md-10 ms-sm-auto main-content">
+            {% block message_content %}
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="container mt-3">
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    {% for message in messages %}
+                    {{ message }}
+                    {% endfor %}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+            {% endif %}
+            {% endwith %}
+            {% endblock %}
+            {% block dashboard_content %}{% endblock %}
+        </main>
+    </div>
+</div>
+{% endblock %}

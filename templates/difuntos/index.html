@@ -1,0 +1,98 @@
+{% extends 'dashboard.html' %}
+{% block title %}Difuntos{% endblock %}
+
+{% block dashboard_content %}
+
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="bi bi-book"></i> Difuntos</h1>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalCrear">
+        <i class="bi bi-plus-circle"></i> Nuevo Difunto
+    </button>
+</div>
+
+<div class="card shadow">
+    <div class="card-body">
+        <table class="table table-striped">
+            <tr class="table-dark">
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Genero</th>
+                <th>Fecha Nacimiento</th>
+                <th>Fecha Defunción</th>
+                <th>CI</th>
+                <th>Estado Civil</th>
+                <th>Causa Muerte</th>
+                <th>Responsable</th>
+                <th>Acciones</th>
+            </tr>
+            {% for item in difuntos %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.nombre }}</td>
+                <td>{{ item.genero }}</td>
+                <td>{{ item.fecha_nacimiento.strftime('%d/%m/%Y') or 'No registrada' }}</td>
+                <td>{{ item.fecha_defuncion.strftime('%d/%m/%Y') }}</td>
+                <td>{{ item.cedula_identidad }}</td>
+                <td>{{ item.estado_civil }}</td>
+                <td>{{ item.causa_muerte or 'No registrada' }}</td>
+                <td>
+                    {% if item.cliente %}
+                    {{ item.cliente.nombre }}
+                    {% else %}
+                    Sin cliente asignado
+                    {% endif %}
+                </td>
+                <td>
+                    <button class="btn btn-primary" data-bs-target="#ModalEditar{{ item.id }}" data-bs-toggle="modal">
+                        <i class="bi bi-pencil"></i>
+                    </button>
+
+                    <a href="{{ url_for('difunto.delete', id=item.id) }}" class="btn btn-danger">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            <div class="modal fade" id="ModalEditar{{ item.id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                <i class="bi bi-pencil"></i> Actualizar Difunto
+                            </h1>
+                        </div>
+
+                        {% include 'difuntos/edit.html' %}
+
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+            <div class="modal fade" id="ModalCrear" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Registro de Difunto</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        {% include 'difuntos/create.html' %}
+
+                    </div>
+                </div>
+            </div>
+        </table>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

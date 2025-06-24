@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-body text-center">
+                    <h1 class="display-4 mb-4">Recuerdos Inolvidables</h1>
+                    <p class="lead">Sistema de Gestión de Servicios Funerarios</p>
+                    <hr>
+                    <p>Bienvenido al sistema de gestión de "Recuerdos Inolvidables". Por favor, inicie sesión para
+                        acceder al sistema.</p>
+
+                    <a href="{{url_for ('login.login')}}" class="btn btn-primary btn-lg mt-2">
+                        <i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión
+                    </a>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,340 @@
+{% extends 'dashboard.html' %}
+{% block title %}Dashboard{% endblock %}
+
+{% block dashboard_content %}
+<style>
+    /* Estilos para mejorar la visibilidad */
+    .card {
+        background-color: #f8f9fa;
+        border-radius: 0.35rem;
+    }
+
+    .card-body {
+        color: #333;
+    }
+
+    .card-header {
+        background-color: #e9ecef;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .text-gray-800 {
+        color: #2e2e2e !important;
+    }
+
+    .text-primary {
+        color: #0061f2 !important;
+    }
+
+    .text-success {
+        color: #00ac69 !important;
+    }
+
+    .text-info {
+        color: #00cfd5 !important;
+    }
+
+    .text-warning {
+        color: #f4a100 !important;
+    }
+
+    .table {
+        color: #212529;
+    }
+
+    .table thead th {
+        background-color: #e9ecef;
+        color: #495057;
+        border-bottom: 2px solid #dee2e6;
+    }
+
+    .badge.bg-success {
+        background-color: #00ac69 !important;
+        color: white !important;
+    }
+
+    .badge.bg-warning {
+        background-color: #f4a100 !important;
+        color: white !important;
+    }
+
+    .badge.bg-info {
+        background-color: #00cfd5 !important;
+        color: white !important;
+    }
+
+    .border-left-primary {
+        border-left: 0.25rem solid #0061f2 !important;
+    }
+
+    .border-left-success {
+        border-left: 0.25rem solid #00ac69 !important;
+    }
+
+    .border-left-info {
+        border-left: 0.25rem solid #00cfd5 !important;
+    }
+
+    .border-left-warning {
+        border-left: 0.25rem solid #f4a100 !important;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: #2c3e50;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Contenido del Dashboard -->
+        <h1 class="mb-4"><i class="bi bi-speedometer2"></i> Dashboard</h1>
+
+        <div class="row mb-4">
+            <!-- Tarjeta Clientes -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2"
+                    style="background-color: #ffffff; border-left: 4px solid #4e73df !important;">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Clientes Registrados</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_clientes }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-people fa-2x text-gray-500"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta Difuntos -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2 bg-white">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                    Difuntos Registrados</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_difuntos }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-book fa-2x text-gray-500"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta Espacios -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2 bg-white">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                    Espacios Totales</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_espacios }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-grid-3x3 fa-2x text-gray-500"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta Ingresos -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-warning shadow h-100 py-2 bg-white">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                    Ingresos Totales</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">Bs. {{
+                                    "%.2f"|format(ingresos_totales) }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-currency-dollar fa-2x text-gray-500"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección Servicios Recientes -->
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-light">
+                        <h6 class="m-0 font-weight-bold text-primary">Servicios Recientes</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover" width="100%" cellspacing="0">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th>Tipo</th>
+                                        <th>Cliente</th>
+                                        <th>Difunto</th>
+                                        <th>Fecha</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for servicio in servicios_recientes %}
+                                    <tr>
+                                        <td>{{ servicio.Servicio.tipo }}</td>
+                                        <td>{{ servicio.cliente_nombre }}</td>
+                                        <td>{{ servicio.difunto_nombre }}</td>
+                                        <td>{{ servicio.Servicio.fecha.strftime('%d/%m/%Y') }}</td>
+                                        <td>
+                                            {% if servicio.Servicio.estado == 'Pagado' %}
+                                            <span class="badge bg-success">{{ servicio.Servicio.estado }}</span>
+                                            {% elif servicio.Servicio.estado == 'Pendiente' %}
+                                            <span class="badge bg-warning">{{ servicio.Servicio.estado }}</span>
+                                            {% else %}
+                                            <span class="badge bg-info">{{ servicio.Servicio.estado }}</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección Mantenimientos Pendientes -->
+            <div class="col-lg-6">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-light">
+                        <h6 class="m-0 font-weight-bold text-primary">Mantenimientos Pendientes</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover" width="100%" cellspacing="0">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th>Descripción</th>
+                                        <th>Ubicación</th>
+                                        <th>Fecha Programada</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for mantenimiento in mantenimientos_pendientes %}
+                                    <tr>
+                                        <td>{{ mantenimiento.descripcion }}</td>
+                                        <td>Sector {{ mantenimiento.espacio.sector }}, N° {{
+                                            mantenimiento.espacio.numero }}</td>
+                                        <td>{{ mantenimiento.fecha_programada.strftime('%d/%m/%Y') }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección Gráfico y Contratos -->
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3 bg-light">
+                        <h6 class="m-0 font-weight-bold text-primary">Disponibilidad de Espacios</h6>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="espaciosChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3 bg-light">
+                        <h6 class="m-0 font-weight-bold text-primary">Contratos por Vencer</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover" width="100%" cellspacing="0">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th>Cliente</th>
+                                        <th>Ubicación</th>
+                                        <th>Fecha Fin</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for contrato in contratos_por_vencer %}
+                                    <tr>
+                                        <td>{{ contrato.cliente_nombre }}</td>
+                                        <td>Sector {{ contrato.Contrato.espacio.sector }}, N° {{
+                                            contrato.Contrato.espacio.numero }}</td>
+                                        <td>{{ contrato.Contrato.fecha_fin.strftime('%d/%m/%Y') }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript para gráficos -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Gráfico de disponibilidad de espacios
+        const ctx = document.getElementById('espaciosChart').getContext('2d');
+        const espaciosChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Disponibles', 'Ocupados', 'Mantenimiento'],
+                datasets: [{
+                    data: [
+                        {{ espacios_disponibles }},
+                {{ espacios_ocupados }},
+                    {{ espacios_mantenimiento }}
+                ],
+        backgroundColor: [
+        '#73df4e',
+        '#df4e73',
+        '#4ebcdf'
+    ],
+        hoverBackgroundColor: [
+        '#73df4e',
+        '#df4e73',
+        '#4ebcdf'
+    ],
+        hoverBorderColor: "rgba(234, 236, 244, 1)",
+            }],
+        },
+        options: {
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'right',
+                labels: {
+                    color: '#333' // Color del texto de la leyenda
+                }
+            }
+        }
+    }
+    });
+});
+</script>
+{% endblock %}

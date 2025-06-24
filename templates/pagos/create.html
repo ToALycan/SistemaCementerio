@@ -1,0 +1,96 @@
+<div class="modal-body">
+    <form action="{{ url_for('pago.create') }}" method="post">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="cliente_id" class="form-label">Cliente</label>
+                <select class="form-select" id="cliente_id" name="cliente_id" required onchange="cargarServicios()">
+                    <option value="">Seleccione un cliente</option>
+                    {% for cliente in clientes %}
+                    <option value="{{ cliente.id }}">{{ cliente.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="servicio_id" class="form-label">Servicio</label>
+                <select class="form-select" id="servicio_id" name="servicio_id">
+                    <option value="">Pago general</option>
+                    {% for servicio in servicios %}
+                    <option value="{{ servicio.id }}" data-cliente="{{ servicio.cliente_id }}"
+                        data-costo="{{ servicio.costo }}" data-estado="{{ servicio.estado }}">
+                        {{ servicio.tipo }} - {{ servicio.difunto.nombre }} ({{ servicio.fecha.strftime('%d/%m/%Y') }})
+                    </option>
+                    {% endfor %}
+
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="monto" class="form-label">Monto</label>
+                <div class="input-group">
+                    <span class="input-group-text">Bs.</span>
+                    <input type="number" class="form-control" id="monto" name="monto" step="0.01" min="0" required>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="metodo_pago" class="form-label">Método de Pago</label>
+                <select class="form-select" id="metodo_pago" name="metodo_pago" required>
+                    <option value="">Seleccione un método</option>
+                    <option value="Efectivo">Efectivo</option>
+                    <option value="Tarjeta">Tarjeta</option>
+                    <option value="Transferencia">Transferencia</option>
+                    <option value="Cheque">Cheque</option>
+                </select>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="referencia" class="form-label">Referencia (opcional)</label>
+            <input type="text" class="form-control" id="referencia" name="referencia"
+                placeholder="Número de transacción, cheque, etc.">
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-save"></i> Registrar Pago
+            </button>
+        </div>
+
+        <script>
+            function cargarServicios() {
+                const clienteId = document.getElementById('cliente_id').value;
+                const servicioSelect = document.getElementById('servicio_id');
+                const servicioOptions = servicioSelect.querySelectorAll('option');
+
+                for (let i = 1; i < servicioOptions.length; i++) {
+                    const option = servicioOptions[i];
+                    const clienteMatch = option.getAttribute('data-cliente') === clienteId;
+                    const estado = option.getAttribute('data-estado');
+                    const esPendiente = estado === 'Pendiente';
+
+                    if (clienteMatch && esPendiente) {
+                        option.style.display = '';
+                    } else {
+                        option.style.display = 'none';
+                    }
+                }
+
+                servicioSelect.selectedIndex = 0;
+            }
+
+            // Cargar costo del servicio seleccionado
+            document.getElementById('servicio_id').addEventListener('change', function () {
+                const selectedOption = this.options[this.selectedIndex];
+                if (selectedOption.value) {
+                    const costo = selectedOption.getAttribute('data-costo');
+                    document.getElementById('monto').value = costo;
+                }
+            });
+
+            // Ejecutar al cargar la página
+            document.addEventListener('DOMContentLoaded', function () {
+                cargarServicios();
+            });
+        </script>
+
+
+    </form>
+</div>

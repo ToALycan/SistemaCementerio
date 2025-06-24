@@ -1,0 +1,112 @@
+{% extends 'dashboard.html' %}
+{% block title %}Contratos{% endblock %}
+
+{% block dashboard_content %}
+
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="bi bi-file-earmark-text"></i> Contratos</h1>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalCrear">
+        <i class="bi bi-plus-circle"></i> Nuevo Contrato
+    </button>
+</div>
+
+<div class="card shadow">
+    <div class="card-body">
+        <table class="table table-striped">
+            <tr class="table-dark">
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Espacio</th>
+                <th>Tipo</th>
+                <th>Fecha Inicio</th>
+                <th>Fecha Fin</th>
+                <th>Costo</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+            {% for item in contratos %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>
+                    {% if item.cliente %}
+                    {{ item.cliente.nombre }}
+                    {% else %}
+                    Sin cliente asignado
+                    {% endif %}
+                </td>
+                <td>
+                    {% if item.espacio %}
+                    {{ item.espacio.tipo }} - Sector {{ item.espacio.sector }}, N° {{ item.espacio.numero }}
+                    {% else %}
+                    Sin espacio asignado
+                    {% endif %}
+                </td>
+                <td>{{ item.tipo }}</td>
+                <td>{{ item.fecha_inicio.strftime('%d/%m/%Y') }}</td>
+                <td>{{ item.fecha_fin or 'Perpetuidad' }}</td>
+                <td>Bs.{{ "%.2f"|format(item.costo) }}</td>
+                <td>
+                    {% if item.estado == 'Activo' %}
+                    <span class="badge bg-success">{{ item.estado }}</span>
+                    {% elif item.estado == 'Vencido' %}
+                    <span class="badge bg-danger">{{ item.estado }}</span>
+                    {% else %}
+                    <span class="badge bg-warning">{{ item.estado }}</span>
+                    {% endif %}
+                </td>
+
+                <td>
+                    <button class="btn btn-primary" data-bs-target="#ModalEditar{{ item.id }}" data-bs-toggle="modal">
+                        <i class="bi bi-pencil"></i>
+                    </button>
+                    <a href="{{ url_for('contrato.delete', id=item.id) }}" class="btn btn-danger">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                    <a href="{{ url_for('contrato.generar_contrato_pdf', id=item.id) }}" class="btn btn-success" target="_blank">
+        <i class="bi bi-file-earmark-pdf-fill"></i>
+    </a>
+                </td>
+            </tr>
+            <div class="modal fade" id="ModalEditar{{ item.id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                <i class="bi bi-pencil"></i> Actualizar Servicio
+                            </h1>
+                        </div>
+
+                        {% include 'contratos/edit.html' %}
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="modal fade" id="ModalCrear" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Registro de Servicios</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        {% include 'contratos/create.html' %}
+
+                    </div>
+                </div>
+            </div>
+        </table>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
