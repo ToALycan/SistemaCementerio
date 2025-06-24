@@ -26,7 +26,7 @@ def create():
     fecha_str = request.form['fecha_ocupacion']
     difunto_id = request.form['difunto_id']
 
-    fecha_ocupacion = datetime.strptime(fecha_str, '%Y-%m-%d').date()
+    fecha_ocupacion = datetime.strptime(fecha_str, '%Y-%m-%d').date() if fecha_str else None
 
     espacio = Espacio(numero=numero, tipo=tipo, descripcion=descripcion, sector=sector, pabellon=pabellon, fila=fila, estado=estado, fecha_ocupacion=fecha_ocupacion, difunto_id=difunto_id)
     espacio.save()
@@ -49,7 +49,7 @@ def edit(id):
         fecha_str = request.form['fecha_ocupacion']
         difunto_id = request.form['difunto_id']
 
-        fecha_ocupacion = datetime.strptime(fecha_str, '%Y-%m-%d').date()
+        fecha_ocupacion = datetime.strptime(fecha_str, '%Y-%m-%d') if fecha_str else None
         
         espacio.update(numero=numero, tipo=tipo, descripcion=descripcion, sector=sector, pabellon=pabellon, fila=fila, estado=estado, fecha_ocupacion=fecha_ocupacion, difunto_id=difunto_id)
         flash("Espacio actualizado", "success")
